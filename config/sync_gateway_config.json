@@ -1,0 +1,77 @@
+{
+  "log": [
+    "*"
+  ],
+  "verbose": true,
+  "CORS": {
+    "origin": [
+      "<CORS_ORIGIN_1>",
+      "<CORS_ORIGIN_2>",
+      "<CORS_ORIGIN_3>",
+      "http://mm-db.ngrok.io",
+      "http://mm-server.ngrok.io"
+    ],
+    "loginOrigin": [
+      "<CORS_LOGIN_ORIGIN_1>",
+      "<CORS_LOGIN_ORIGIN_2>",
+      "<CORS_LOGIN_ORIGIN_3>",
+      "http://mm-db.ngrok.io",
+      "http://mm-server.ngrok.io"
+    ],
+    "headers": [
+      "Accept",
+      "Authorization",
+      "Content-Type",
+      "Origin",
+      "Referer",
+      "X-CSRF-Token"
+    ],
+    "maxAge": 17280000
+  },
+  "databases": {
+    "<DATABASE_NAME>": {
+      "server": "<DATABASE_SERVER>",
+      "bucket": "<DATABASE_BUCKET>",
+      "users": {
+        "GUEST": {
+          "disabled": true
+        }
+      },
+      "revsLimit": 3,
+      "sync": `
+function(doc, oldDoc) {
+
+    // ngrok cors
+
+    if (doc._deleted) {
+
+        // Only document owners can delete documents
+        requireUser(oldDoc.owner);
+
+        // Skip other validation because a deletion has no other properties:
+        return;
+    }
+
+    // Required properties:
+    if (!doc.entityType || !doc.owner || !doc.channels) {
+        throw({forbidden: 'Missing required properties'});
+    }
+
+    // The 'owner' property must match the user creating the document,
+    // and only document owners can change documents
+    requireUser(oldDoc ? oldDoc.owner : doc.owner);
+
+    // The 'owner' property is immutable:
+    if (oldDoc && doc.owner !== oldDoc.owner) {
+        throw({forbidden: 'Cannot change owner'});
+    }
+
+    // Finally, assign the document to the channels in the list:
+    channel(doc.channels);
+    
+}
+
+`
+    }
+  }
+}
