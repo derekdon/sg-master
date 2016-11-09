@@ -28,7 +28,7 @@ sed \
   -e 's/<DATABASE_NAME>/$DATABASE_NAME/g' \
   -e 's/<DATABASE_SERVER>/$DATABASE_SERVER/g' \
   -e 's/<DATABASE_BUCKET>/$DATABASE_BUCKET/g' \
-  /etc/sync_gateway/config.json
+  -i /etc/sync_gateway/config.json
 
 sleep 20
 
