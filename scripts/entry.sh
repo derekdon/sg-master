@@ -21,7 +21,7 @@ fi
 sed \
   -e 's/<CORS_ORIGIN_1>/$CORS_ORIGIN_1/g' \
   -e 's/<CORS_ORIGIN_2>/$CORS_ORIGIN_2/g' \
-  -e 's/<CORS_ORIGIN_3>/$CORS_ORIGIN_3/g' \  
+  -e 's/<CORS_ORIGIN_3>/$CORS_ORIGIN_3/g' \
   -e 's/<CORS_LOGIN_ORIGIN_1>/$CORS_LOGIN_ORIGIN_1/g' \
   -e 's/<CORS_LOGIN_ORIGIN_2>/$CORS_LOGIN_ORIGIN_2/g' \
   -e 's/<CORS_LOGIN_ORIGIN_3>/$CORS_LOGIN_ORIGIN_3/g' \
