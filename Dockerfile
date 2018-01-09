@@ -1,4 +1,3 @@
-# Testing hook to auto build
 FROM couchbase/sync-gateway:1.5.1-community
 
 MAINTAINER Derek Donnelly, derek@codex9.com
