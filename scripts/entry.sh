@@ -18,7 +18,19 @@ if [ -z "$DATABASE_SERVER" ]; then
     exit 3
 fi
 
+if [ -z "$ADMIN_INTERFACE" ]; then
+    echo "ADMIN_INTERFACE environment variable not set"
+    exit 3
+fi
+
+if [ -z "$INTERFACE" ]; then
+    echo "INTERFACE environment variable not set"
+    exit 3
+fi
+
 sed \
+  -e "s,<ADMIN_INTERFACE>,$ADMIN_INTERFACE,g" \
+  -e "s,<INTERFACE>,$INTERFACE,g" \
   -e "s,<CORS_ORIGIN_1>,$CORS_ORIGIN_1,g" \
   -e "s,<CORS_ORIGIN_2>,$CORS_ORIGIN_2,g" \
   -e "s,<CORS_ORIGIN_3>,$CORS_ORIGIN_3,g" \

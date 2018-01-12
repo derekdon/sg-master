@@ -2,6 +2,8 @@
   "log": [
     "*"
   ],
+  "adminInterface": "<ADMIN_INTERFACE>",
+  "interface": "<INTERFACE>",
   "verbose": true,
   "CORS": {
     "origin": [
